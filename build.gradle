@@ -1,5 +1,6 @@
 plugins {
-    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'mx.tecmilenio.computacion.java'
@@ -10,10 +11,14 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation 'io.jsondb:jsondb-core:1.0.115-j11'
+
 }
 
-test {
-    useJUnitPlatform()
+application {
+    mainClass = 'mx.tecmilenio.computacion.java.evidencia.App'
+}
+
+run{
+    standardInput = System.in
 }

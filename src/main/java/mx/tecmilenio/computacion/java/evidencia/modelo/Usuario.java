@@ -1,4 +1,4 @@
-package mx.tecmilenio.computacion.java.evidencia;
+package mx.tecmilenio.computacion.java.evidencia.modelo;
 
 public class Usuario extends Persona {
     public String usuario;
