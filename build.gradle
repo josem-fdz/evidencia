@@ -12,6 +12,8 @@ repositories {
 
 dependencies {
     implementation 'io.jsondb:jsondb-core:1.0.115-j11'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'ch.qos.logback:logback-classic:0.9.26'
 
 }
 

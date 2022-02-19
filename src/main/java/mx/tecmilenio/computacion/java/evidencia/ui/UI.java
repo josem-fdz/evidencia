@@ -9,6 +9,7 @@ import static java.lang.System.out;
 public class UI {
     static final int lineas = 80;
     static final String PATRON_DIGITOS = "\\d+";
+
     private static Scanner entrada = new Scanner(System.in);
 
     public static void iniciar() {
@@ -25,11 +26,12 @@ public class UI {
         }
     }
 
-    private static void mostrar(Menu menu) {
+    public static void mostrar(Menu menu) {
         AtomicReference<String> seleccion = new AtomicReference<>();
         do {
             menu.opciones();
             seleccion.set(getDato("Seleccione una opcion", PATRON_DIGITOS));
+            menu.procesar(seleccion.get());
         } while (!seleccion.get().equals(menu.salida()));
     }
 
@@ -47,5 +49,7 @@ public class UI {
         out.println(in.repeat(lineas));
     }
 
-
+    public static void opcion(int num, String in) {
+        out.printf("| %s. %s\n", num, in);
+    }
 }

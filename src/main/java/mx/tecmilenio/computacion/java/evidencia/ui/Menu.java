@@ -4,4 +4,6 @@ interface Menu {
     String salida();
 
     void opciones();
+
+    void procesar(String seleccion);
 }
