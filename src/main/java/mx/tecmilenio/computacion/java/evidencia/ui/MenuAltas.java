@@ -1,8 +1,10 @@
 package mx.tecmilenio.computacion.java.evidencia.ui;
 
-import mx.tecmilenio.computacion.java.evidencia.modelo.Usuario;
 import mx.tecmilenio.computacion.java.evidencia.persistencia.DB;
-import mx.tecmilenio.computacion.java.evidencia.util.Constantes;
+
+import static mx.tecmilenio.computacion.java.evidencia.util.Constantes.PATRON_ALFA_NUMERICO;
+import static mx.tecmilenio.computacion.java.evidencia.util.Constantes.PATRON_DIGITOS;
+import static org.apache.commons.lang3.math.NumberUtils.toInt;
 
 class MenuAltas implements Menu {
     @Override
@@ -17,6 +19,7 @@ class MenuAltas implements Menu {
         UI.opcion("2", "Medicos");
         UI.opcion("3", "Citas");
         UI.opcion("4", "Regresar");
+        UI.lineas("-");
 
     }
 
@@ -24,37 +27,45 @@ class MenuAltas implements Menu {
     public void procesar(String seleccion) {
         switch (seleccion) {
             case "1": {
-                iniciarSesion();
+                crearPaciente();
+                break;
+            }
+            case "2": {
+                crearDoctor();
+                break;
+            }
+            case "3": {
+                crearCita();
                 break;
             }
         }
     }
 
-    private void iniciarSesion() {
-        boolean inicioSesion = false;
-        Usuario usuario = null;
+    private void crearCita() {
+        int id = toInt(UI.getDato("ID (numerico)", PATRON_DIGITOS));
+        int idDoc = toInt(UI.getDato("ID Doctor (numerico)", PATRON_DIGITOS));
+        int idPaciente = toInt(UI.getDato("ID Paciente(numerico)", PATRON_DIGITOS));
+        var fecha = UI.getDato("Fecha", PATRON_ALFA_NUMERICO);
+        var motivo = UI.getDato("Motivo", PATRON_ALFA_NUMERICO);
 
-        while (!inicioSesion) {
-            var username = UI.getDato("Usuario",
-                    Constantes.PATRON_ALFA_NUMERICO);
-
-            var passwd = UI.getDato("Contraseña",
-                    Constantes.PATRON_ALFA_NUMERICO);
-
-            var db = DB.getUsuario(
-                    username, passwd
-            );
-
-            inicioSesion = db.isPresent();
-
-            if (inicioSesion) {
-                usuario = db.get();
-            } else {
-                System.out.println("Usuario invalido!");
-            }
-        }
-
-        UI.mostrar(new MenuPricipal(usuario.getEsAdministrador()));
-
+        DB.crearCita(id, fecha, idDoc, idPaciente, motivo);
     }
+
+    private void crearPaciente() {
+
+        int id = toInt(UI.getDato("ID (numerico)", PATRON_DIGITOS));
+        var nombre = UI.getDato("Nombre", PATRON_ALFA_NUMERICO);
+
+        DB.crearPaciente(id, nombre);
+    }
+
+    private void crearDoctor() {
+
+        int id = toInt(UI.getDato("ID (numerico)", PATRON_DIGITOS));
+        var nombre = UI.getDato("Nombre", PATRON_ALFA_NUMERICO);
+        var especcialidad = UI.getDato("Especialidad", PATRON_ALFA_NUMERICO);
+
+        DB.crearDoctor(id, nombre, especcialidad);
+    }
+
 }

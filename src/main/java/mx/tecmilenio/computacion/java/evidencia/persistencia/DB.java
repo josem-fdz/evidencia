@@ -73,7 +73,7 @@ public class DB {
 
     }
 
-    private static void crearPaciente(int id, String nombre) {
+    public static void crearPaciente(int id, String nombre) {
         Paciente reg = new Paciente(id, nombre);
 
         db.insert(reg);
@@ -100,9 +100,30 @@ public class DB {
         logger.info("Doctor creado {}", reg);
     }
 
+    public static void crearCita(int id, String fecha, int idDoc, int idPaciente, String motivo) {
+        var doctor = listaDoctor().stream().filter(it -> it.getId() == idDoc).findFirst();
+
+        if (doctor.isEmpty()) {
+            logger.warn("Doctor {} no encontrado", idDoc);
+            return;
+        }
+
+        var paciente = listaPaciente().stream().filter(it -> it.getId() == idPaciente).findFirst();
+
+        if (paciente.isEmpty()) {
+            logger.warn("Paciente {} no encontrado", idPaciente);
+            return;
+        }
+
+        Cita cita = new Cita(id, fecha, doctor.get(), paciente.get(), motivo);
+
+        db.insert(cita);
+
+        logger.info("Cita creado {}", cita);
+    }
+
     public static Optional<Usuario> getUsuario(String username, String passwd) {
-        return db.findAll(Usuario.class
-        ).stream()
+        return listaUsuario().stream()
                 .filter(it -> it.matches(username, passwd)).findFirst();
     }
 

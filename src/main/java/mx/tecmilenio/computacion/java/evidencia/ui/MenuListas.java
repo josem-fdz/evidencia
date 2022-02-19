@@ -54,7 +54,7 @@ class MenuListas implements Menu {
     private void listaCitas() {
         UI.encabezado("Lista de Citas");
 
-        DB.listaUsuario().forEach(out::println);
+        DB.listaCita().forEach(out::println);
     }
 
 
