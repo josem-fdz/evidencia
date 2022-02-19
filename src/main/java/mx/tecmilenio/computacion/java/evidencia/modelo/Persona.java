@@ -1,6 +1,6 @@
 package mx.tecmilenio.computacion.java.evidencia.modelo;
 
-abstract class Persona extends Registro {
+abstract class Persona {
     private String nombreCompleto;
 
     public String getNombreCompleto() {

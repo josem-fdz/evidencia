@@ -1,4 +1,6 @@
 package mx.tecmilenio.computacion.java.evidencia.modelo;
 
-abstract class Registro {
+public interface Registro {
+    int getId();
+
 }

@@ -5,15 +5,14 @@ import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static java.lang.System.out;
+import static mx.tecmilenio.computacion.java.evidencia.util.Constantes.PATRON_DIGITOS;
+import static mx.tecmilenio.computacion.java.evidencia.util.Constantes.lineas;
+import static org.apache.commons.lang3.StringUtils.equalsIgnoreCase;
 
 public class UI {
-    static final int lineas = 80;
-    static final String PATRON_DIGITOS = "\\d+";
-
-    private static Scanner entrada = new Scanner(System.in);
-
     public static void iniciar() {
-        mostrar(new MenuPricipal());
+        mostrar(new MenuLogin());
+
     }
 
     public static String getDato(String dato, String patron) {
@@ -32,7 +31,8 @@ public class UI {
             menu.opciones();
             seleccion.set(getDato("Seleccione una opcion", PATRON_DIGITOS));
             menu.procesar(seleccion.get());
-        } while (!seleccion.get().equals(menu.salida()));
+        } while (!equalsIgnoreCase(seleccion.get(),
+                menu.salida()));
     }
 
     public static void encabezado(String titulo) {
@@ -49,7 +49,7 @@ public class UI {
         out.println(in.repeat(lineas));
     }
 
-    public static void opcion(int num, String in) {
+    public static void opcion(String num, String in) {
         out.printf("| %s. %s\n", num, in);
     }
 }
