@@ -1,28 +1,42 @@
 package mx.tecmilenio.computacion.java.evidencia.ui;
 
+import static org.apache.commons.lang3.StringUtils.upperCase;
+
 class MenuPricipal implements Menu {
+    final boolean esAdministrador;
+
+    MenuPricipal(boolean esAdministrador) {
+        this.esAdministrador = esAdministrador;
+    }
+
+
     @Override
     public String salida() {
-        return "7";
+        return "3";
     }
 
     @Override
     public void opciones() {
         UI.encabezado("Menu Principal");
-        UI.opcion(1, "Alta Cita");
-        UI.opcion(2, "Alta Doctor");
-        UI.opcion(3, "Alta Pacientes");
-        UI.opcion(4, "Lista Citas");
-        UI.opcion(5, "Lista Doctores");
-        UI.opcion(6, "Lista Pacientes");
-        UI.opcion(7, "Salir");
+        if (esAdministrador) {
+            UI.opcion("1", "Altas");
+        }
+        UI.opcion("2", "Listas");
+        UI.opcion("3", "Salir");
         UI.lineas("-");
     }
 
     @Override
     public void procesar(String seleccion) {
-        switch (seleccion) {
-
+        switch (upperCase(seleccion)) {
+            case "1": {
+                UI.mostrar(new MenuAltas());
+                break;
+            }
+            case "2": {
+                UI.mostrar(new MenuListas());
+                break;
+            }
         }
     }
 }

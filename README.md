@@ -5,7 +5,7 @@
 
 ### Instalación y configuración.
 
-Windows `ejecutar.bat`
+Windows ejecutar archivo `iniciar.bat`
 
 ### Uso del programa.
 
